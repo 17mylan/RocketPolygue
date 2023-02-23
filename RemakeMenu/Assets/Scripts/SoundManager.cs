@@ -1,42 +1,68 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class SoundManager : MonoBehaviour
 {
-    public AudioClip[] audioClips; // Tableau contenant les sons à jouer
-    private int currentClipIndex = 0; // Index du son en cours de lecture
+    public GameObject canvasSongName;
+    public Text playedSong;
+    public AudioClip[] audioClips;
+    private int currentClipIndex = 0;
+    public float waitTimerForHideSongName;
+    private AudioSource audioSource;
 
-    private AudioSource audioSource; // Composant AudioSource pour jouer les sons
+    public bool soundCooldown = false;
+    public float waitTimerCooldownSong;
 
     void Start()
     {
-        audioSource = GetComponent<AudioSource>(); // Récupération du composant AudioSource sur l'objet courant
-        audioSource.clip = audioClips[currentClipIndex]; // Chargement du premier son
-        audioSource.Play(); // Lecture du premier son
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = audioClips[currentClipIndex];
+        audioSource.Play();
+        /*canvasSongName.SetActive(true);
+        playedSong.text = "Music | Now playing: '" + audioClips[currentClipIndex].name + "' by Throttle.\nPress 'N' to play next sound.".ToString();
+        StartCoroutine("HideSongName");*/
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow)) // Si on appuie sur la touche E
+        if (Input.GetKeyDown(KeyCode.N))
         {
-            PlayNextClip(); // On passe au son suivant
+            if(soundCooldown == false)
+                PlayNextClip();
         }
 
-        if (!audioSource.isPlaying) // Si le son en cours de lecture est terminé
+        if (!audioSource.isPlaying)
         {
-            PlayNextClip(); // On passe au son suivant
+            if(soundCooldown == false)
+                PlayNextClip();
         }
     }
 
     private void PlayNextClip()
-    {
-        currentClipIndex++; // Passage au son suivant
-        if (currentClipIndex >= audioClips.Length) // Si le dernier son a été joué
+    {   
+        canvasSongName.SetActive(true);
+        StartCoroutine("HideSongName");
+        StartCoroutine("CooldownSong");
+        currentClipIndex++;
+        if (currentClipIndex >= audioClips.Length)
         {
-            currentClipIndex = 0; // On revient au premier son
+            currentClipIndex = 0;
         }
-        audioSource.clip = audioClips[currentClipIndex]; // Chargement du nouveau son
-        audioSource.Play(); // Lecture du nouveau son
+        audioSource.clip = audioClips[currentClipIndex];
+        audioSource.Play(); 
+        print("Music | Now playing: '" + audioClips[currentClipIndex].name + "' by Throttle.");
+        playedSong.text = "Music | Now playing: '" + audioClips[currentClipIndex].name + "' by Throttle.\nPress 'N' to play next sound.".ToString();
+    }
+    public IEnumerator CooldownSong()
+    {
+        soundCooldown = true;
+        yield return new WaitForSeconds(waitTimerCooldownSong);
+        soundCooldown = false;
+    }
+    public IEnumerator HideSongName()
+    {
+        yield return new WaitForSeconds(waitTimerForHideSongName);
+        canvasSongName.SetActive(false);
     }
 }

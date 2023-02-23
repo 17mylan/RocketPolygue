@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SaveCamera : MonoBehaviour
 {
@@ -34,6 +35,10 @@ public class SaveCamera : MonoBehaviour
         if(Input.GetMouseButtonDown(1))
         {
             ResetCamera();
+        }
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene("Stadium");
         }
     }
 }
