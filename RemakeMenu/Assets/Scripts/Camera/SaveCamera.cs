@@ -7,7 +7,7 @@ public class SaveCamera : MonoBehaviour
 {
     private Vector3 cameraPosition;
     private Vector3 cameraRotation;
-
+    public GameObject ProfileCanvas;
     void Start()
     {
         cameraPosition = transform.position;
@@ -38,7 +38,8 @@ public class SaveCamera : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.R))
         {
-            SceneManager.LoadScene("Stadium");
+            if(!ProfileCanvas.activeSelf)
+                SceneManager.LoadScene("Stadium");
         }
     }
 }

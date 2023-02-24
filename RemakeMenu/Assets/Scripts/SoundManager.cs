@@ -13,7 +13,7 @@ public class SoundManager : MonoBehaviour
 
     public bool soundCooldown = false;
     public float waitTimerCooldownSong;
-
+    public GameObject ProfileCanvas;
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -32,8 +32,11 @@ public class SoundManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.N))
         {
-            if(soundCooldown == false)
-                PlayNextClip();
+            if(!ProfileCanvas.activeSelf)
+            {
+                if(soundCooldown == false)
+                    PlayNextClip();
+            }
         }
 
         if (!audioSource.isPlaying)
