@@ -6,6 +6,10 @@ public class CarManager : MonoBehaviour
 {
     public List<GameObject> carList; // la liste des GameObjects à contrôler
     private int activeIndex = 0; // l'index du GameObject actif
+    public bool canPlaySong = true;
+    public AudioSource audioSource;
+    public AudioClip audioClip;
+    public float waitTimerSong;
 
     private void Start()
     {
@@ -26,6 +30,12 @@ public class CarManager : MonoBehaviour
         // vérifier si l'utilisateur a cliqué sur la souris
         if (Input.GetKeyDown(KeyCode.C))
         {
+            if(canPlaySong)
+            {
+                audioSource.PlayOneShot(audioClip);
+                canPlaySong = false;
+                StartCoroutine(WaitSong());
+            }
             activeIndex = PlayerPrefs.GetInt("SavedCar", activeIndex);
             // désactiver le GameObject actif
             carList[activeIndex].SetActive(false);
@@ -37,5 +47,10 @@ public class CarManager : MonoBehaviour
             carList[activeIndex].SetActive(true);
             PlayerPrefs.SetInt("SavedCar", activeIndex);
         }
+    }
+    IEnumerator WaitSong()
+    {
+        yield return new WaitForSeconds(waitTimerSong);
+        canPlaySong = true;
     }
 }

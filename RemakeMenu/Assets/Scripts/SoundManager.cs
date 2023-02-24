@@ -19,9 +19,12 @@ public class SoundManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = audioClips[currentClipIndex];
         audioSource.Play();
-        /*canvasSongName.SetActive(true);
+    }
+    public void SoundAnimation()
+    {
+        canvasSongName.SetActive(true);
         playedSong.text = "Music | Now playing: '" + audioClips[currentClipIndex].name + "' by Throttle.\nPress 'N' to play next sound.".ToString();
-        StartCoroutine("HideSongName");*/
+        StartCoroutine("HideSongName");
     }
 
     void Update()

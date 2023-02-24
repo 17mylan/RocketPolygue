@@ -14,12 +14,19 @@ public class CameraManager : MonoBehaviour
     public CinemachineVirtualCamera currentCamera;
     [Header("Floats Numbers")]
     public float waitTimer;
+    public AudioSource audioSource;
+    public AudioClip audioClip;
+    public GameObject mainCanvas;
 
     public bool canClick = false;
+    public bool canPlaySong = true;
+    public bool firstInteraction = true;
+    public SoundManager soundManager;
 
     //[Header("Boolean")]
-    void Start()
+    private void Start()
     {
+        soundManager = FindObjectOfType<SoundManager>();
         cameraCarView.SetActive(false);
         StartCoroutine(WaitBeforeAnyClick());
     }
@@ -32,20 +39,31 @@ public class CameraManager : MonoBehaviour
     {
         if(Input.anyKey)
         {
-            if(canClick)
+            if(firstInteraction)
             {
-                canvasCameraPressAnyKey.SetActive(false);
-                currentCamera.Priority--;
-                StartCoroutine("CameraTransition");
+                if(canClick)
+                {
+                    if(canPlaySong)
+                    {
+                        audioSource.PlayOneShot(audioClip);
+                        canPlaySong = false;
+                    }
+                    soundManager.SoundAnimation();
+                    canvasCameraPressAnyKey.SetActive(false);
+                    currentCamera.Priority--;
+                    StartCoroutine("CameraTransition");
+                }
             }
         }
     }
     public IEnumerator CameraTransition()
     {
         yield return new WaitForSeconds(waitTimer);
+        firstInteraction = false;
         cameraCarView.SetActive(true);
         cameraPressAnyKey.SetActive(false);
         vCam1.SetActive(false);
         vCam2.SetActive(false);
+        mainCanvas.SetActive(true);
     }
 }
