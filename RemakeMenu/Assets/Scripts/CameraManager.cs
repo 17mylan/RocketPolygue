@@ -11,6 +11,7 @@ public class CameraManager : MonoBehaviour
     public GameObject vCam1;
     public GameObject vCam2;
     public GameObject cameraCarView;
+    public GameObject playerCanvas;
     public CinemachineVirtualCamera currentCamera;
     [Header("Floats Numbers")]
     public float waitTimer;
@@ -24,22 +25,22 @@ public class CameraManager : MonoBehaviour
     public SoundManager soundManager;
 
     //[Header("Boolean")]
-    private void Start()
+    private void Awake()
     {
         soundManager = FindObjectOfType<SoundManager>();
         cameraCarView.SetActive(false);
-        StartCoroutine(WaitBeforeAnyClick());
+        StartCoroutine("WaitBeforeAnyClick");
     }
     IEnumerator WaitBeforeAnyClick()
     {
-        yield return new WaitForSeconds(1.2F);
+        yield return new WaitForSeconds(1.6f);
         canClick = true;
     }
     void Update()
     {
-        if(Input.anyKey)
+        if(firstInteraction)
         {
-            if(firstInteraction)
+            if(Input.anyKey)
             {
                 if(canClick)
                 {
@@ -47,17 +48,17 @@ public class CameraManager : MonoBehaviour
                     {
                         audioSource.PlayOneShot(audioClip);
                         canPlaySong = false;
+                        StartCoroutine("CameraTransition");
                     }
-                    soundManager.SoundAnimation();
-                    canvasCameraPressAnyKey.SetActive(false);
-                    currentCamera.Priority--;
-                    StartCoroutine("CameraTransition");
+                    currentCamera.Priority = currentCamera.Priority - 200;
                 }
             }
         }
     }
     public IEnumerator CameraTransition()
     {
+        soundManager.SoundAnimation();
+        canvasCameraPressAnyKey.SetActive(false);
         yield return new WaitForSeconds(waitTimer);
         firstInteraction = false;
         cameraCarView.SetActive(true);
@@ -65,5 +66,6 @@ public class CameraManager : MonoBehaviour
         vCam1.SetActive(false);
         vCam2.SetActive(false);
         mainCanvas.SetActive(true);
+        playerCanvas.SetActive(true);
     }
 }

@@ -25,6 +25,7 @@ public class SoundManager : MonoBehaviour
         canvasSongName.SetActive(true);
         playedSong.text = "Music | Now playing: '" + audioClips[currentClipIndex].name + "' by Throttle.\nPress 'N' to play next sound.".ToString();
         StartCoroutine("HideSongName");
+        StartCoroutine("CooldownSong");
     }
 
     void Update()
@@ -54,7 +55,6 @@ public class SoundManager : MonoBehaviour
         }
         audioSource.clip = audioClips[currentClipIndex];
         audioSource.Play(); 
-        print("Music | Now playing: '" + audioClips[currentClipIndex].name + "' by Throttle.");
         playedSong.text = "Music | Now playing: '" + audioClips[currentClipIndex].name + "' by Throttle.\nPress 'N' to play next sound.".ToString();
     }
     public IEnumerator CooldownSong()

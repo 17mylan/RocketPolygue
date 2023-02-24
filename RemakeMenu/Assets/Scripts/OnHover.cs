@@ -7,14 +7,22 @@ using TMPro;
 
 public class OnHover : MonoBehaviour
 {
+    [Header("Audio")]
     public AudioSource audioSource;
     public AudioClip PointerEnterSound;
+    [Header("Floats")]
     public float buttonSize;
-    public TextMeshProUGUI textColor;
+    [Header("Colors")]
     public Color color;
     public Color nativeColor;
+    [Header("GameObjects")]
     public Button myButton;
     public GameObject ping;
+    public TextMeshProUGUI textColor;
+    public TextMeshProUGUI buttonText;
+    [Header("Strings")]
+    public string textExplain;
+    public string nativeText;
     public void PointerEnter()
     {
         transform.localScale = new Vector2(buttonSize, buttonSize);
@@ -23,6 +31,7 @@ public class OnHover : MonoBehaviour
         buttonImage.color = color;
         audioSource.PlayOneShot(PointerEnterSound);
         InstantiateImage();
+        buttonText.text = textExplain;
     }
     public void PointerExit()
     {
@@ -42,5 +51,6 @@ public class OnHover : MonoBehaviour
     public void DestroyImage()
     {
         DestroyImmediate(GameObject.Find("Image(Clone)"), true);
+        buttonText.text = nativeText;
     }
 }
