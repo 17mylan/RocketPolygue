@@ -14,27 +14,7 @@ public class Title : MonoBehaviour
     {
         // Ajouter un listener à l'événement OnValueChanged du dropdown
         dropdown.onValueChanged.AddListener(OnDropdownValueChanged);
-        if(PlayerPrefs.GetString("playerTitle").Length <= 1)
-        {
-            playerTitle.text = "Casual Player";
-        }
-        else
-        {
-            playerTitle.text = PlayerPrefs.GetString("playerTitle");
-            string title = PlayerPrefs.GetString("playerTitle");
-            if(title == "Developer" || title == "Rocket Polygue Team" || title == "Beta Tester" || title == "Moderator")
-            {
-                playerTitle.color = Color.green;
-            }
-            else if(title == "RPCS World Champion")
-            {
-                playerTitle.color = Color.cyan;
-            }
-            else
-            {
-                playerTitle.color = Color.white;
-            }
-        }
+        StartCoroutine("Wait");
     }
 
     // Fonction appelée lorsque la valeur du dropdown est changée
@@ -58,4 +38,31 @@ public class Title : MonoBehaviour
             playerTitle.color = Color.white;
         }
     }
+    public IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(1f);
+        if(PlayerPrefs.GetString("playerTitle").Length <= 1)
+        {
+            playerTitle.text = "Casual Player";
+        }
+        else
+        {
+            playerTitle.text = PlayerPrefs.GetString("playerTitle");
+            string title = PlayerPrefs.GetString("playerTitle");
+            if(title == "Developer" || title == "Rocket Polygue Team" || title == "Beta Tester" || title == "Moderator")
+            {
+                playerTitle.color = Color.green;
+            }
+            else if(title == "RPCS World Champion")
+            {
+                playerTitle.color = Color.cyan;
+            }
+            else
+            {
+                playerTitle.color = Color.white;
+            }
+        }
+    }
+
+
 }

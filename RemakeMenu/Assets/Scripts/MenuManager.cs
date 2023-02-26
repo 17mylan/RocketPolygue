@@ -13,8 +13,10 @@ public class MenuManager : MonoBehaviour
 
     public GameObject Profile;
     public GameObject profileButton;
+    public GameObject quitButton;
     public Color nativeColor;
     public OnHover onHover;
+    public GameObject QuitGame;
     private void Start()
     {
         onHover = FindObjectOfType<OnHover>();
@@ -31,6 +33,7 @@ public class MenuManager : MonoBehaviour
     public void OpenProfile()
     {
         PlaySound(1);
+        CloseAllPanels();
         Profile.SetActive(true);
         profileButton.transform.localScale = new Vector2(1f, 1f);
     }
@@ -42,6 +45,25 @@ public class MenuManager : MonoBehaviour
     }
 
 
+    public void OpenQuitGame()
+    {
+        PlaySound(1);
+        CloseAllPanels();
+        QuitGame.SetActive(true);
+        quitButton.transform.localScale = new Vector2(1f, 1f);
+    }
+    public void CloseQuitGame()
+    {
+        PlaySound(2);
+        onHover.PointerExit();
+        QuitGame.SetActive(false);
+    }
+
+    public void CloseAllPanels()
+    {
+        Profile.SetActive(false);
+        QuitGame.SetActive(false);
+    }
     public void QuitApplication()
     {
         Application.Quit();
