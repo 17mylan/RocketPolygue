@@ -25,7 +25,34 @@ public class CarManager : MonoBehaviour
         carList[PlayerPrefs.GetInt("SavedCar", activeIndex)].SetActive(true);
     }
 
-    private void Update()
+    IEnumerator WaitSong()
+    {
+        yield return new WaitForSeconds(waitTimerSong);
+        canPlaySong = true;
+    }
+    public void NextCar()
+    {
+        if(canPlaySong)
+            {
+                audioSource.PlayOneShot(audioClip);
+                canPlaySong = false;
+                StartCoroutine(WaitSong());
+            }
+            activeIndex = PlayerPrefs.GetInt("SavedCar", activeIndex);
+            // désactiver le GameObject actif
+            carList[activeIndex].SetActive(false);
+
+            // passer à l'index suivant, ou revenir au début si on est à la fin de la liste
+            activeIndex = (activeIndex + 1) % carList.Count;
+
+            // activer le nouveau GameObject actif
+            carList[activeIndex].SetActive(true);
+            PlayerPrefs.SetInt("SavedCar", activeIndex);
+            PlayerPrefs.SetString("SavedCarName", carList[activeIndex].name);
+    }
+}
+
+    /*private void Update()
     {
         // vérifier si l'utilisateur a cliqué sur la souris
         if (Input.GetKeyDown(KeyCode.C))
@@ -47,10 +74,4 @@ public class CarManager : MonoBehaviour
             carList[activeIndex].SetActive(true);
             PlayerPrefs.SetInt("SavedCar", activeIndex);
         }
-    }
-    IEnumerator WaitSong()
-    {
-        yield return new WaitForSeconds(waitTimerSong);
-        canPlaySong = true;
-    }
-}
+    }*/

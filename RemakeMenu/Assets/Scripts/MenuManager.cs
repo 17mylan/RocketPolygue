@@ -17,6 +17,8 @@ public class MenuManager : MonoBehaviour
     public Color nativeColor;
     public OnHover onHover;
     public GameObject QuitGame;
+    public GameObject garageButton;
+    public GameObject Garage;
     private void Start()
     {
         onHover = FindObjectOfType<OnHover>();
@@ -63,6 +65,20 @@ public class MenuManager : MonoBehaviour
     {
         Profile.SetActive(false);
         QuitGame.SetActive(false);
+        Garage.SetActive(false);
+    }
+    public void OpenGarage()
+    {
+        PlaySound(1);
+        CloseAllPanels();
+        Garage.SetActive(true);
+        garageButton.transform.localScale = new Vector2(1f, 1f);
+    }
+    public void CloseGarage()
+    {
+        PlaySound(2);
+        onHover.PointerExit();
+        Garage.SetActive(false);
     }
     public void QuitApplication()
     {

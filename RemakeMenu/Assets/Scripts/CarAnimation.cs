@@ -19,6 +19,7 @@ public class CarAnimation : MonoBehaviour
         {
             if(!imageCar.activeSelf)
                 menuManager.CloseAllPanels();
+                menuManager.PlaySound(1);
                 imageCar.SetActive(true);
                 isClicked = true;
         }
@@ -28,6 +29,7 @@ public class CarAnimation : MonoBehaviour
                 animator.Play("AnnonceBacking");
                 isClicked = false;
                 cooldown = true;
+                menuManager.PlaySound(2);
                 StartCoroutine("wait");
         }
     }
