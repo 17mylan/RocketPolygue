@@ -46,6 +46,7 @@ public class CarManager : MonoBehaviour
             activeIndex = (activeIndex + 1) % carList.Count;
 
             // activer le nouveau GameObject actif
+            carList[activeIndex].transform.position = new Vector3(carList[activeIndex].transform.position.x, 0.5f, carList[activeIndex].transform.position.z);
             carList[activeIndex].SetActive(true);
             PlayerPrefs.SetInt("SavedCar", activeIndex);
             PlayerPrefs.SetString("SavedCarName", carList[activeIndex].name);

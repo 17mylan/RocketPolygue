@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Stadium.unity
     guid: d9ffb39c16ab4a04683ce1d94ab9503d
   - enabled: 0
-    path: Assets/Scenes/New Scene.unity
+    path: Assets/Scenes/Bugatti.unity
     guid: b756ca3922719e74fa2a4942d34cedec
   m_configObjects: {}

@@ -16,5 +16,9 @@ public class GetCarName : MonoBehaviour
     void Update()
     {
         carName.text = PlayerPrefs.GetString("SavedCarName");
+        if(!PlayerPrefs.HasKey("SavedCarName"))
+        {
+            carName.text = "NISSAN GTR R35".ToString();
+        }
     }
 }
