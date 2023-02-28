@@ -37,7 +37,7 @@ public class CameraManager : MonoBehaviour
         canClick = true;
     }
     void Update()
-    {
+    { 
         if(firstInteraction)
         {
             if(Input.anyKey)
