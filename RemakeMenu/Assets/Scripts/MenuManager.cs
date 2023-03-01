@@ -19,9 +19,16 @@ public class MenuManager : MonoBehaviour
     public GameObject QuitGame;
     public GameObject garageButton;
     public GameObject Garage;
+    public GameObject Settings;
+    public GameObject settingsButton;
+    public GameObject counterFPS;
     private void Start()
     {
         onHover = FindObjectOfType<OnHover>();
+        if(PlayerPrefs.GetString("ShowFPS") == "Active")
+        {
+            counterFPS.SetActive(true);
+        }
     }
     public void PlaySound(int index)
     {
@@ -45,7 +52,19 @@ public class MenuManager : MonoBehaviour
         onHover.PointerExit();
         Profile.SetActive(false);
     }
-
+    public void OpenSettings()
+    {
+        PlaySound(1);
+        CloseAllPanels();
+        Settings.SetActive(true);
+        settingsButton.transform.localScale = new Vector2(1f, 1f);
+    }
+    public void CloseSettings()
+    {
+        PlaySound(2);
+        onHover.PointerExit();
+        Settings.SetActive(false);
+    }
 
     public void OpenQuitGame()
     {
@@ -66,6 +85,7 @@ public class MenuManager : MonoBehaviour
         Profile.SetActive(false);
         QuitGame.SetActive(false);
         Garage.SetActive(false);
+        Settings.SetActive(false);
     }
     public void OpenGarage()
     {
@@ -80,6 +100,17 @@ public class MenuManager : MonoBehaviour
         onHover.PointerExit();
         Garage.SetActive(false);
     }
+    public void ShowFPS()
+    {
+        counterFPS.SetActive(true);
+        PlayerPrefs.SetString("ShowFPS", "Active");
+    }
+    public void HideFPS()
+    {
+        counterFPS.SetActive(false);
+        PlayerPrefs.SetString("ShowFPS", "Disable");
+    }
+
     public void QuitApplication()
     {
         Application.Quit();
