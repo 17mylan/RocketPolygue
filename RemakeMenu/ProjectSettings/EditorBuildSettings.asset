@@ -8,6 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Stadium.unity
     guid: d9ffb39c16ab4a04683ce1d94ab9503d
+  - enabled: 1
+    path: Assets/Scenes/PlayGround.unity
+    guid: 2c059976739be664890d6e63adc11893
   - enabled: 0
     path: Assets/Scenes/Bugatti.unity
     guid: b756ca3922719e74fa2a4942d34cedec

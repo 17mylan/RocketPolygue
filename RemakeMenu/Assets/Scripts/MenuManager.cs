@@ -32,6 +32,10 @@ public class MenuManager : MonoBehaviour
             counterFPS.SetActive(true);
         }
     }
+    public void ChangeScene(string _string)
+    {
+        SceneManager.LoadScene(_string);
+    }
     public void PlaySound(int index)
     {
         if(index == 1)
