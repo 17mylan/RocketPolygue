@@ -10,6 +10,8 @@ public class CameraRotation : MonoBehaviour
     public float waitTimer;
     public bool canMove = false;
 
+    public GameObject garage, settings, profile;
+
     void Start()
     {
         StartCoroutine("Wait");
@@ -24,7 +26,10 @@ public class CameraRotation : MonoBehaviour
         if(Input.GetMouseButton(0))
         {
             if(canMove)
-                cameraObject.transform.RotateAround(targetObject.transform.position, Vector3.up, -Input.GetAxis("Mouse X")*speed);
+            {
+                if(!garage.activeSelf && !settings.activeSelf && !profile.activeSelf)
+                    cameraObject.transform.RotateAround(targetObject.transform.position, Vector3.up, -Input.GetAxis("Mouse X")*speed);
+            }
         }
     }
 }

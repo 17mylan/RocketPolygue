@@ -22,6 +22,8 @@ public class MenuManager : MonoBehaviour
     public GameObject Settings;
     public GameObject settingsButton;
     public GameObject counterFPS;
+    public GameObject Credits;
+    public GameObject creditsButton;
     private void Start()
     {
         onHover = FindObjectOfType<OnHover>();
@@ -58,6 +60,7 @@ public class MenuManager : MonoBehaviour
         CloseAllPanels();
         Settings.SetActive(true);
         settingsButton.transform.localScale = new Vector2(1f, 1f);
+        creditsButton.transform.localScale = new Vector2(1f, 1f);
     }
     public void CloseSettings()
     {
@@ -78,14 +81,6 @@ public class MenuManager : MonoBehaviour
         PlaySound(2);
         onHover.PointerExit();
         QuitGame.SetActive(false);
-    }
-
-    public void CloseAllPanels()
-    {
-        Profile.SetActive(false);
-        QuitGame.SetActive(false);
-        Garage.SetActive(false);
-        Settings.SetActive(false);
     }
     public void OpenGarage()
     {
@@ -110,7 +105,31 @@ public class MenuManager : MonoBehaviour
         counterFPS.SetActive(false);
         PlayerPrefs.SetString("ShowFPS", "Disable");
     }
-
+    public void OpenCredits()
+    {
+        PlaySound(1);
+        CloseAllPanels();
+        Credits.SetActive(true);
+        creditsButton.transform.localScale = new Vector2(1f, 1f);
+    }
+    public void CloseCredits()
+    {
+        PlaySound(2);
+        onHover.PointerExit();
+        Credits.SetActive(false);
+    }
+    public void CloseAllPanels()
+    {
+        Profile.SetActive(false);
+        QuitGame.SetActive(false);
+        Garage.SetActive(false);
+        Settings.SetActive(false);
+        Credits.SetActive(false);
+    }
+    public void ChangeScreen()
+    {
+        Screen.fullScreen = !Screen.fullScreen;
+    }
     public void QuitApplication()
     {
         Application.Quit();
