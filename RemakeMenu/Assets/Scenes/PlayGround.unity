@@ -19577,6 +19577,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Particules
       objectReference: {fileID: 0}
+    - target: {fileID: 4977234240121334448, guid: cbddbb51123bc6f4a9c675de2790ae06, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4977234240121334450, guid: cbddbb51123bc6f4a9c675de2790ae06, type: 3}
       propertyPath: m_MaxParticleSize
       value: 0.01

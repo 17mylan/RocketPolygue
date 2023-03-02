@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PlayGround.unity
     guid: 2c059976739be664890d6e63adc11893
+  - enabled: 1
+    path: Assets/Scenes/LoadingScene.unity
+    guid: 478c620940b3766488c4029ab2266730
   - enabled: 0
     path: Assets/Scenes/Bugatti.unity
     guid: b756ca3922719e74fa2a4942d34cedec
