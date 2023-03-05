@@ -24,6 +24,8 @@ public class MenuManager : MonoBehaviour
     public GameObject counterFPS;
     public GameObject Credits;
     public GameObject creditsButton;
+    public GameObject Shop;
+    public GameObject shopButton;
     private void Start()
     {
         onHover = FindObjectOfType<OnHover>();
@@ -122,6 +124,19 @@ public class MenuManager : MonoBehaviour
         onHover.PointerExit();
         Credits.SetActive(false);
     }
+    public void OpenShop()
+    {
+        PlaySound(1);
+        CloseAllPanels();
+        Shop.SetActive(true);
+        shopButton.transform.localScale = new Vector2(1f, 1f);
+    }
+    public void CloseShop()
+    {
+        PlaySound(2);
+        onHover.PointerExit();
+        Shop.SetActive(false);
+    }
     public void CloseAllPanels()
     {
         Profile.SetActive(false);
@@ -129,6 +144,7 @@ public class MenuManager : MonoBehaviour
         Garage.SetActive(false);
         Settings.SetActive(false);
         Credits.SetActive(false);
+        Shop.SetActive(false);
     }
     public void ChangeScreen()
     {
