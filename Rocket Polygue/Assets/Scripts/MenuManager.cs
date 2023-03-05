@@ -26,6 +26,8 @@ public class MenuManager : MonoBehaviour
     public GameObject creditsButton;
     public GameObject Shop;
     public GameObject shopButton;
+    public GameObject Play;
+    public GameObject playButton;
     private void Start()
     {
         onHover = FindObjectOfType<OnHover>();
@@ -137,6 +139,19 @@ public class MenuManager : MonoBehaviour
         onHover.PointerExit();
         Shop.SetActive(false);
     }
+    public void OpenPlay()
+    {
+        PlaySound(1);
+        CloseAllPanels();
+        Play.SetActive(true);
+        playButton.transform.localScale = new Vector2(1f, 1f);
+    }
+    public void ClosePlay()
+    {
+        PlaySound(2);
+        onHover.PointerExit();
+        Play.SetActive(false);
+    }
     public void CloseAllPanels()
     {
         Profile.SetActive(false);
@@ -145,6 +160,7 @@ public class MenuManager : MonoBehaviour
         Settings.SetActive(false);
         Credits.SetActive(false);
         Shop.SetActive(false);
+        Play.SetActive(false);
     }
     public void ChangeScreen()
     {

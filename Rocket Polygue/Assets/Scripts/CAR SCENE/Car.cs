@@ -40,9 +40,11 @@ public class Car : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
-        transform.Translate(Vector3.forward * Time.deltaTime * speed * verticalInput);
-        transform.Rotate(Vector3.up, Time.deltaTime * rotationSpeed * horizontalInput);
-
+        if (verticalInput > 0)
+        {
+            transform.Translate(Vector3.forward * Time.deltaTime * speed * verticalInput);
+            transform.Rotate(Vector3.up, Time.deltaTime * rotationSpeed * horizontalInput);
+        }
         if(Input.GetMouseButton(0))
             cameraObject.transform.RotateAround(targetObject.transform.position, Vector3.up, -Input.GetAxis("Mouse X")*speedCam);
 
