@@ -11,6 +11,7 @@ public class MenuManager : MonoBehaviour
     public AudioClip enterClickSound;
     public AudioClip backClickSound;
 
+    public Animator animator;
     public GameObject Profile;
     public GameObject profileButton;
     public GameObject quitButton;
@@ -28,6 +29,7 @@ public class MenuManager : MonoBehaviour
     public GameObject shopButton;
     public GameObject Play;
     public GameObject playButton;
+    public GameObject FadeToBlack;
     private void Start()
     {
         onHover = FindObjectOfType<OnHover>();
@@ -151,6 +153,17 @@ public class MenuManager : MonoBehaviour
         PlaySound(2);
         onHover.PointerExit();
         Play.SetActive(false);
+    }
+    public void JoinPlayground()
+    {
+        StartCoroutine(Co_FadeToBlack());
+    }
+    public IEnumerator Co_FadeToBlack()
+    {
+        FadeToBlack.SetActive(true);
+        animator.Play("FadeToBlack");
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene("PlayGround");
     }
     public void CloseAllPanels()
     {
