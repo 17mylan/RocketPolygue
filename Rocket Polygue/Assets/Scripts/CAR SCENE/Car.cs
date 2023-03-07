@@ -5,15 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class Car : MonoBehaviour
 {
-    public float speed = 5.0f;
-    public float rotationSpeed = 200.0f;
-
     public Camera cameraObject;
     public GameObject targetObject;
     public float speedCam = 5f;
     public GameObject Car1, Car2, Car3, Car4;
     public void Start()
     {
+        rb = GetComponent<Rigidbody>();
         Car1.SetActive(false);
         Car2.SetActive(false);
         Car3.SetActive(false);
@@ -37,19 +35,36 @@ public class Car : MonoBehaviour
     }
     void Update()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-
-        if (verticalInput > 0)
-        {
-            transform.Translate(Vector3.forward * Time.deltaTime * speed * verticalInput);
-            transform.Rotate(Vector3.up, Time.deltaTime * rotationSpeed * horizontalInput);
-        }
         if(Input.GetMouseButton(0))
             cameraObject.transform.RotateAround(targetObject.transform.position, Vector3.up, -Input.GetAxis("Mouse X")*speedCam);
-
         if(Input.GetMouseButton(1))
             SceneManager.LoadScene("PlayGround");
-        
+    }
+    public float speed = 10.0f;
+    private Rigidbody rb;
+    public float rotationSpeed = 50.0f;
+
+    void FixedUpdate()
+    {
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = 0.0f;
+
+        if (Input.GetKey(KeyCode.Z))
+        {
+            moveVertical = 1.0f;
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            moveVertical = -1.0f;
+        }
+
+        if (moveVertical != 0 && moveHorizontal != 0)
+            transform.Rotate(Vector3.up, Time.deltaTime * rotationSpeed * moveHorizontal);
+
+        Vector3 moveDirection = new Vector3(0.0f, 0.0f, moveVertical);
+        moveDirection = transform.TransformDirection(moveDirection);
+        moveDirection *= speed;
+
+        rb.MovePosition(transform.position + moveDirection * Time.deltaTime);
     }
 }
