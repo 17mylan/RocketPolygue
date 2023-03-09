@@ -10,9 +10,8 @@ public class Name : MonoBehaviour
 
     private void Start()
     {
-        if(PlayerPrefs.GetString("userName").Length >= 0)
-            userName.text = PlayerPrefs.GetString("username");
-        else
+        userName.text = PlayerPrefs.GetString("username");
+        if(!PlayerPrefs.HasKey("username"))
             userName.text = "New Player";
     }
     public void Create()
