@@ -40,31 +40,39 @@ public class Car : MonoBehaviour
         if(Input.GetMouseButton(1))
             SceneManager.LoadScene("PlayGround");
     }
-    public float speed = 10.0f;
-    private Rigidbody rb;
+    private float currentSpeed = 0.0f;
+    public float maxSpeed = 2.0f;
     public float rotationSpeed = 50.0f;
-
+    public float smoothCarMoving = 20f;
+    private Rigidbody rb;
     void FixedUpdate()
     {
         float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = 0.0f;
+        float moveVertical = Input.GetAxis("Vertical");
 
-        if (Input.GetKey(KeyCode.Z))
+        if (moveVertical > 0)
         {
-            moveVertical = 1.0f;
+            currentSpeed = Mathf.MoveTowards(currentSpeed, maxSpeed, Time.deltaTime * smoothCarMoving);
         }
-        else if (Input.GetKey(KeyCode.S))
+        else if (moveVertical < 0)
         {
-            moveVertical = -1.0f;
+            currentSpeed = Mathf.MoveTowards(currentSpeed, -maxSpeed, Time.deltaTime * smoothCarMoving);
+        }
+        else
+        {
+            currentSpeed = Mathf.MoveTowards(currentSpeed, 0.0f, Time.deltaTime * smoothCarMoving);
         }
 
-        if (moveVertical != 0 && moveHorizontal != 0)
-            transform.Rotate(Vector3.up, Time.deltaTime * rotationSpeed * moveHorizontal);
+        if (currentSpeed != 0)
+        {
+            Vector3 moveDirection = new Vector3(0.0f, 0.0f, currentSpeed);
+            moveDirection = transform.TransformDirection(moveDirection);
+            rb.AddForce(moveDirection, ForceMode.VelocityChange);
+        }
 
-        Vector3 moveDirection = new Vector3(0.0f, 0.0f, moveVertical);
-        moveDirection = transform.TransformDirection(moveDirection);
-        moveDirection *= speed;
-
-        rb.MovePosition(transform.position + moveDirection * Time.deltaTime);
+        if (moveVertical != 0 || moveHorizontal != 0)
+        {
+            transform.Rotate(Vector3.up, Time.deltaTime * moveHorizontal * rotationSpeed);
+        }
     }
 }
