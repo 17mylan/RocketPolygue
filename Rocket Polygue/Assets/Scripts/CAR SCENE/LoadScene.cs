@@ -10,7 +10,7 @@ public class LoadScene : MonoBehaviour
     public TextMeshProUGUI loadingProgress;
     public void Start()
     {
-        StartCoroutine(LoadAsynchronously(0));
+        StartCoroutine(LoadAsynchronously(1));
     }
     IEnumerator LoadAsynchronously (int sceneIndex)
     {
